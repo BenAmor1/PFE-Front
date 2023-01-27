@@ -18,6 +18,7 @@
   - name: Tag the image
     shell: docker tag reactfront/image beffa/project_pfe-2022:react_frontV1.0
   
+  #push image to docker inventory
   - name: Push the image to Docker Hub
     shell: docker push beffa/project_pfe-2022:react_frontV1.0
     

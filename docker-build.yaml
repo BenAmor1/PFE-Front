@@ -1,0 +1,32 @@
+---
+- name: Build and push Docker images
+  hosts: all
+  become: yes
+  
+  tasks:
+ 
+  - name: Copy directory from Ansible server to remote host
+    copy:
+      src: /var/lib/awx/projects/_65__reactfront/
+      dest: /tmp/react_front/
+  
+  
+  - name: Build the Docker image
+    shell: cd /tmp/react_front/ && docker build . -t reactfront/image
+     
+    
+  - name: Tag the image
+    shell: docker tag reactfront/image beffa/project_pfe-2022:react_frontV1.0
+  
+  - name: Push the image to Docker Hub
+    shell: docker push beffa/project_pfe-2022:react_frontV1.0
+    
+
+  #remove all local images
+  - name: remove local images
+    shell: docker rmi -f $(docker images -aq)  
+    
+  - name: Delete Directory
+    file:
+      path: /tmp/react_front/
+      state: absent

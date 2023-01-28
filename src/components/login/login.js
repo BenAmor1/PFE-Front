@@ -39,7 +39,7 @@ const [error,seterror]= useState("")
 
     console.log("submitted");
     axios
-      .post("http://localhost:5000/admin/login", admin)
+      .post("http://172.29.50.92:5000/admin/login", admin)
         .then((res) => {
           localStorage.setItem("access_token", res.data.access_token);
           console.log(res.data);

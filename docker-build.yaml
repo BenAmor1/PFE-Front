@@ -12,7 +12,8 @@
     
   - name: Build the Docker image
     shell: cd /tmp/react_front/ && docker build . -t reactfront/image
-       
+  
+#test  
   - name: Tag the image
     shell: docker tag reactfront/image beffa/project_pfe-2022:react_frontV1.0
   

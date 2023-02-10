@@ -4,24 +4,33 @@
   become: yes
   
   tasks:
- 
-  - name: Copy directory from Ansible server to remote host
-    copy:
-      src: /var/lib/awx/projects/_65__reactfront/
-      dest: /tmp/react_front/
+   
+  - name: Check if directory exists
+    stat:
+      path: /PFE-Front
+    register: repo_stat
+
+  - name: Clone repository
+    shell: |
+      git clone https://github.com/BenAmor1/PFE-Front.git
+    when: repo_stat.stat.exists == False
+
+  - name: Pull repository
+    shell: |
+      cd /PFE-Front
+      git pull 
+    when: repo_stat.stat.exists == True
     
   - name: Build the Docker image
-    shell: cd /tmp/react_front/ && docker build . -t reactfront/image
-  
-#test  
+    shell: | 
+      cd /PFE-Front
+      docker build . -t reactfront/image
+   
   - name: Tag the image
-    shell: docker tag reactfront/image beffa/project_pfe-2022:react_frontV1
+    shell: | 
+      cd /PFE-Front
+      docker tag reactfront/image beffa/project_pfe-2022:react_frontV1
   
-  #push image to docker inventory
   - name: Push the image to Docker Hub
     shell: docker push beffa/project_pfe-2022:react_frontV1
-        
-  - name: Delete Directory
-    file:
-      path: /tmp/react_front/
-      state: absent
+    

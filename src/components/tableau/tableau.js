@@ -10,13 +10,13 @@ export default function DataTable() {
 
   const [tableData, setTableData] = useState([]);
   useEffect(async () => {
-    await axios.get("http://localhost:5000/operateur/overview").then((res) => {
+    await axios.get("http://172.29.50.239:5000/operateur/overview").then((res) => {
       setTableData(res.data);
     });
   }, []);
 
   const handleDelete=(id)=>{
-    axios.delete(`http://localhost:5000/operateur/delete/${id}`, ).then((res) => {
+    axios.delete(`http://172.29.50.239:5000/operateur/delete/${id}`, ).then((res) => {
       console.log(res.data)
       window.location.reload(true);
     })

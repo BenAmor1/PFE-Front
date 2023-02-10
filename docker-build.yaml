@@ -15,7 +15,7 @@
       git clone https://github.com/BenAmor1/PFE-Front.git /PFE-Front
     when: repo_stat.stat.exists == False
 
-  - name: Pull repository
+  - name: Pull  repository
     shell: |
       cd /PFE-Front
       git pull 

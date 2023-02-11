@@ -10,6 +10,7 @@
       path: /PFE-Front
     register: repo_stat
 
+
   - name: Clone repository
     shell: |
       git clone https://github.com/BenAmor1/PFE-Front.git /PFE-Front
